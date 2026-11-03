@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Study Companion</title>
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg">
+<meta name="theme-color" content="#3b5b9d">
+<style>
+:root{--bg:#eceff3;--cd:#fff;--tx:#1f2933;--mu:#6b7684;--ac:#3b5b9d;--onac:#fff;--ok:#2e8b6a;--bad:#c4504d;--bd:#dde2e8;--dot:rgba(31,41,51,.07);--g1:rgba(59,91,157,.12);--g2:rgba(46,139,106,.08);--sh:0 1px 2px rgba(31,41,51,.05),0 6px 16px rgba(31,41,51,.06)}
+@media(prefers-color-scheme:dark){:root{--bg:#11151b;--cd:#1a2028;--tx:#e8ecf1;--mu:#94a0ae;--ac:#86a3dc;--onac:#10151c;--ok:#5cbd9a;--bad:#e07b78;--bd:#2a323c;--dot:rgba(255,255,255,.05);--g1:rgba(134,163,220,.10);--g2:rgba(92,189,154,.06);--sh:0 6px 16px rgba(0,0,0,.25)}}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 10% 0,var(--g1),transparent 45%),radial-gradient(circle at 100% 35%,var(--g2),transparent 40%),radial-gradient(var(--dot) 1px,transparent 1px) 0 0/22px 22px,var(--bg);background-attachment:fixed;color:var(--tx);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+main{max-width:720px;margin:0 auto;padding:12px 14px 80px}
+h1{font-size:22px;margin:10px 0 12px;letter-spacing:.2px}h1::after{content:'';display:block;width:42px;height:3px;border-radius:3px;background:var(--ac);margin-top:6px}h2{font-size:16px;margin:0 0 8px}
+nav{position:sticky;top:0;display:flex;background:color-mix(in srgb,var(--cd) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--bd);z-index:5;box-shadow:var(--sh)}
+nav button{flex:1;background:none;border:0;padding:12px 2px;font:inherit;font-size:13px;color:var(--mu)}
+nav button.on{color:var(--ac);border-bottom:3px solid var(--ac);font-weight:600}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:var(--sh);border-top:3px solid color-mix(in srgb,var(--ac) 55%,var(--bd))}
+input,select,textarea{width:100%;padding:10px;margin:4px 0 8px;border:1px solid var(--bd);border-radius:10px;font:inherit;background:var(--bg);color:var(--tx)}
+textarea{height:140px}
+.b{background:var(--ac);color:var(--onac);border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:600;margin:4px 4px 0 0}
+.b.g{background:var(--bg);color:var(--tx);border:1px solid var(--bd)}.b.r{background:var(--bad);color:#fff}
+.o{display:block;width:100%;text-align:left;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:10px;margin-top:6px;font:inherit}
+.o.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--cd))}
+.o.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,var(--cd))}
+.m{color:var(--mu);font-size:13px}.t{display:inline-block;border:1px solid var(--bd);border-radius:20px;padding:1px 10px;font-size:12px;margin-right:4px}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.hide{display:none}
+.hero{text-align:center;padding:26px 6px 14px}.hero h1{font-size:28px;margin:0 0 8px}.hero h1::after{margin:8px auto 0}
+.hero p{color:var(--mu);max-width:460px;margin:0 auto 16px}.hero .b{width:auto;min-width:150px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.grid .c{margin:0;padding:12px}
+.grid b{display:block;margin-bottom:2px}.grid span{color:var(--mu);font-size:13px;line-height:1.4;display:block}
+.step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.step i{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ac);color:var(--onac);display:grid;place-items:center;font-style:normal;font-weight:600;font-size:13px}
+.doc{background:#fff;color:#111;font:13px/1.5 Georgia,'Times New Roman',serif;padding:14px;border-radius:8px}
+.doc h2{font-size:18px;margin:0 0 2px;color:#111}.doc h3{font-size:14px;margin:12px 0 4px;color:#111}.doc .pm{color:#555;font-size:12px;margin-bottom:6px}
+.doc li{margin-bottom:8px;color:#111}.doc p{margin:0 0 8px;text-align:justify}.pvw{max-height:380px;overflow:auto;border:1px solid var(--bd)}
+.doc .pgb{margin-bottom:16px}.nb{break-inside:avoid;page-break-inside:avoid}
+#pa{display:none}
+@media print{nav,main,#ban{display:none!important}body{background:#fff!important;padding:0}#pa{display:block;font-size:11pt}#pa .pgb{break-after:page;page-break-after:always;margin:0}#pa .pgb:last-child{break-after:auto;page-break-after:auto}}
+.st{display:flex;justify-content:flex-end;margin:2px 0 8px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;border:1px solid var(--bd);background:var(--cd);color:var(--mu);border-radius:20px;padding:3px 11px;cursor:pointer;font-family:inherit}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:#d9a441}.pill.ok .dot{background:var(--ok)}.pill.ok{color:var(--tx)}
+.pd{font-size:12px;color:var(--mu);text-align:right;margin:-4px 0 8px}
+#ban{position:fixed;top:8px;left:8px;right:8px;background:var(--ac);color:var(--onac);padding:12px;border-radius:12px;z-index:9;display:none}
+</style></head><body>
+<div id="ban"></div>
+<nav id="nav"></nav>
+<main>
+<div class="st"><button class="pill" id="ofp" onclick="$('ofd').classList.toggle('hide')" aria-label="Offline status"><span class="dot"></span><span id="oft">Checking...</span></button></div>
+<div id="ofd" class="pd hide"></div>
+<section id="p-home">
+<div class="hero"><span class="t">Works offline</span><span class="t">Phone &amp; computer</span>
+<h1>Study Companion</h1>
+<p>Turn lecture recordings into written notes, short summaries and practice quizzes. Everything stays on your device.</p>
+<button class="b" onclick="go()">Get started</button>
+<button class="b g" onclick="go()">Import a recording</button></div>
+<div class="grid">
+<div class="c"><b>Audio to text</b><span>Import a PLAUD recording and get a written copy.</span></div>
+<div class="c"><b>Quick summaries</b><span>Key points picked out of every lecture.</span></div>
+<div class="c"><b>Custom quizzes</b><span>10 to 50 questions, reshuffled on demand.</span></div>
+<div class="c"><b>Subjects</b><span>Keep each course separate and organized.</span></div>
+<div class="c"><b>History</b><span>Archive or delete lectures any time.</span></div>
+<div class="c"><b>Reminders</b><span>Set study times by subject and weekday.</span></div></div>
+<div class="c"><h2>How it works</h2>
+<div class="step"><i>1</i><div>Record your lecture with PLAUD Note and import the audio or transcript.</div></div>
+<div class="step"><i>2</i><div>Review the text, pick a subject, and save to get your summary.</div></div>
+<div class="step"><i>3</i><div>Take a quiz, reshuffle it, and set reminders to keep practicing.</div></div></div>
+<div class="c"><h2>Private by design</h2><div class="m">No account and no uploads. Your lectures and quiz data are stored only on this device, and the app works without internet after the first load.</div></div>
+<p class="m" style="text-align:center">Capstone project: AI-Enhanced Study Companion using PLAUD Note</p>
+</section>
+
+<section id="p-add"><h1>Study Companion</h1>
+<div class="c"><h2>Import audio lecture</h2>
+<select id="am"><option value="Xenova/whisper-tiny.en">English (faster, ~40 MB model)</option><option value="Xenova/whisper-tiny">Multilingual (~75 MB model)</option></select>
+<input type="file" id="af" accept="audio/*,.m4a,.mp3,.wav">
+<button class="b" id="ab" onclick="trans()">Transcribe to text</button>
+<div id="ap" class="m">First use downloads the speech model (needs internet once). After that it works offline. The text appears below for you to review before saving.</div></div>
+<div class="c"><h2>New lecture</h2>
+<div class="row"><select id="sub"></select><button class="b g" onclick="addSub()">+ Subject</button></div>
+<input id="ttl" placeholder="Lecture title">
+<textarea id="txt" placeholder="Paste PLAUD transcript here..."></textarea>
+<input type="file" id="file" accept=".txt,.md">
+<button class="b" onclick="saveL()">Save &amp; summarize</button>
+<div id="addmsg" class="m"></div></div></section>
+
+<section id="p-his" class="hide"><div class="c"><h2>History</h2>
+<div class="row"><select id="hs" onchange="hist()"></select>
+<label class="m"><input type="checkbox" id="ha" onchange="hist()" style="width:auto"> Archived</label></div></div>
+<div id="hl"></div></section>
+
+<section id="p-qz" class="hide"><div class="c"><h2>Quiz</h2>
+<select id="qs"></select>
+<label class="m">Questions: <b id="nv">20</b> (10 to 50)</label>
+<input type="range" id="rg" min="10" max="50" value="20" oninput="nv.textContent=this.value">
+<button class="b" onclick="start()">Start quiz</button></div>
+<div id="qz"></div></section>
+
+<section id="p-rem" class="hide"><div class="c"><h2>Reminders</h2>
+<select id="rs"></select><input type="time" id="rt" value="19:00">
+<div id="rd" class="m"></div>
+<button class="b" onclick="addR()">Add reminder</button>
+<button class="b g" onclick="askN()">Enable notifications</button></div>
+<div id="rl"></div>
+<p class="m">Reminders fire while the app is open or running in the background. Fully closed web apps cannot be woken by the browser.</p></section>
+
+<section id="p-prn" class="hide"><div class="c"><h2>Print</h2>
+<div class="row"><select id="ps" onchange="initL();render()"></select><select id="pl" onchange="render()"></select></div>
+<div class="m">Include:</div>
+<label><input type="checkbox" id="cs" checked onchange="render()" style="width:auto"> Summary</label>
+<label><input type="checkbox" id="ct" onchange="render()" style="width:auto"> Transcript</label>
+<label><input type="checkbox" id="cq" checked onchange="render()" style="width:auto"> Quiz</label>
+<label><input type="checkbox" id="ck" checked onchange="render()" style="width:auto"> Answer key</label>
+<label class="m" style="display:block;margin-top:8px">Quiz questions: <b id="pnv">20</b> (10 to 50)</label>
+<input type="range" id="pn" min="10" max="50" value="20" oninput="$('pnv').textContent=this.value" onchange="render()">
+<h2 style="margin-top:10px">Page setup</h2>
+<div class="row"><select id="pz" onchange="setPage()"></select>
+<select id="po" onchange="setPage()"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
+<div id="cu" class="row hide"><input id="cw" type="number" min="50" max="1200" value="210" oninput="setPage()" aria-label="Width in mm"><input id="ch" type="number" min="50" max="1200" value="297" oninput="setPage()" aria-label="Height in mm"></div>
+<select id="pm" onchange="setPage()"><option value="10">Narrow margins (10 mm)</option><option value="15" selected>Normal margins (15 mm)</option><option value="25">Wide margins (25 mm)</option></select>
+<div id="pi" class="m"></div>
+<button class="b" onclick="pr()">Print / Save as PDF</button>
+<button class="b g" onclick="render()">Refresh preview</button></div>
+<div class="c"><h2>Preview</h2><div id="pv" class="doc pvw"></div></div>
+<p class="m">Tip: on a computer choose Save as PDF in the print window. Safari and iPhone may ignore the paper size and orientation set here.</p></section>
+</main>
+<div id="pa" class="doc"></div>
+<style id="pgs"></style>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let D={L:[],S:['General'],R:[]};
+try{const x=JSON.parse(localStorage.getItem('sc'));if(x&&x.L)D=x}catch(e){}
+const save=()=>{try{localStorage.setItem('sc',JSON.stringify(D))}catch(e){}};
+
+const TABS=[['home','Home'],['add','Add'],['his','History'],['qz','Quiz'],['rem','Remind'],['prn','Print']];
+$('nav').innerHTML=TABS.map(t=>`<button id="n-${t[0]}" onclick="tab('${t[0]}')">${t[1]}</button>`).join('');
+function tab(k){TABS.forEach(t=>{$('p-'+t[0]).classList.toggle('hide',t[0]!==k);$('n-'+t[0]).classList.toggle('on',t[0]===k)});if(k==='his')hist();if(k==='rem')rems();if(k==='prn')initP()}
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+$('rd').innerHTML=DAYS.map((d,i)=>`<label><input type="checkbox" class="dy" value="${i}" checked style="width:auto"> ${d}</label> `).join('');
+
+function fill(){
+ const o=D.S.map(s=>`<option>${esc(s)}</option>`).join(''),all='<option value="">All subjects</option>'+o;
+ const keep=[['sub',o],['rs',o],['hs',all],['qs',all]];
+ keep.forEach(([id,h])=>{const v=$(id).value;$(id).innerHTML=h;if(v!==undefined)$(id).value=v})
+}
+function addSub(){const n=(prompt('Subject name')||'').trim();if(n&&!D.S.includes(n)){D.S.push(n);save();fill();$('sub').value=n}}
+
+const SW=new Set('about after also because before being between could during other their there these those through under where which while would should using takes place into from with that this have been were what when than then them they your such many much more most some only over very'.split(' '));
+const sents=t=>t.split(/(?<=[.!?])\s+/).filter(s=>s.trim().length>25);
+const words=s=>(s.toLowerCase().match(/[a-z]{6,}/g)||[]).filter(w=>!SW.has(w));
+function summarize(t){
+ const S=sents(t),f={};S.forEach(s=>words(s).forEach(w=>f[w]=(f[w]||0)+1));
+ return S.map((s,i)=>({s,i,v:words(s).reduce((a,w)=>a+f[w],0)})).sort((a,b)=>b.v-a.v).slice(0,5).sort((a,b)=>a.i-b.i).map(x=>x.s)
+}
+$('file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('txt').value=r.result;if(!$('ttl').value)$('ttl').value=f.name.replace(/\.\w+$/,'')};r.readAsText(f)};
+function saveL(){
+ const text=$('txt').value.trim();
+ if(sents(text).length<3){$('addmsg').textContent='Transcript too short (need 3+ sentences).';return}
+ D.L.unshift({id:String(Date.now()),sub:$('sub').value,title:$('ttl').value.trim()||'Untitled lecture',text,sum:summarize(text),date:new Date().toLocaleString(),arch:false});
+ save();$('txt').value='';$('ttl').value='';$('addmsg').textContent='Saved to History.';
+}
+
+function hist(){
+ const s=$('hs').value,a=$('ha').checked;
+ const L=D.L.filter(l=>(!s||l.sub===s)&&l.arch===a);
+ $('hl').innerHTML=L.length?L.map(l=>`<div class="c"><b>${esc(l.title)}</b><br><span class="t">${esc(l.sub)}</span><span class="m">${esc(l.date)}</span>
+ <div id="v${l.id}" class="hide"><ul>${l.sum.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+ <button class="b g" onclick="$('v${l.id}').classList.toggle('hide')">Summary</button>
+ <button class="b g" onclick="arch('${l.id}')">${l.arch?'Unarchive':'Archive'}</button>
+ <button class="b r" onclick="del('${l.id}')">Delete</button></div>`).join(''):'<p class="m">Nothing here.</p>';
+}
+function arch(id){const l=D.L.find(x=>x.id===id);l.arch=!l.arch;save();hist()}
+function del(id){if(confirm('Delete this lecture permanently?')){D.L=D.L.filter(x=>x.id!==id);save();hist()}}
+
+let Q=[],qi=0,sc=0;
+function build(ls){
+ const f={};ls.forEach(l=>sents(l.text).forEach(s=>words(s).forEach(w=>f[w]=(f[w]||0)+1)));
+ const T=Object.keys(f).sort((a,b)=>f[b]-f[a]).slice(0,40),P=[];
+ ls.forEach(l=>sents(l.text).forEach(s=>{
+  [...new Set(words(s))].filter(w=>T.includes(w)).slice(0,3).forEach(w=>{
+   const q=s.replace(new RegExp('\\b'+w+'\\b','i'),'_____');if(q!==s)P.push({q,a:w,s})})}));
+ return[P,T]
+}
+function start(){
+ const ls=D.L.filter(l=>!l.arch&&(!$('qs').value||l.sub===$('qs').value));
+ const[P,T]=build(ls),n=+$('rg').value;
+ if(P.length<4){$('qz').innerHTML='<div class="c">Not enough lecture content for this subject yet. Add a longer transcript.</div>';return}
+ Q=shuf(P).slice(0,n).map(x=>({...x,o:shuf([x.a,...shuf(T.filter(t=>t!==x.a)).slice(0,3)])}));
+ qi=0;sc=0;
+ $('qz').innerHTML=(Q.length<n?`<div class="c m">Only ${Q.length} questions possible from this content (you asked for ${n}).</div>`:'')+'<div id="qb"></div>';
+ show();
+}
+function show(){
+ if(qi>=Q.length){$('qb').innerHTML=`<div class="c"><h2>Score: ${sc} / ${Q.length}</h2><button class="b" onclick="start()">Reshuffle &amp; retake</button></div>`;return}
+ const q=Q[qi];
+ $('qb').innerHTML=`<div class="c"><div class="m">Question ${qi+1} of ${Q.length}</div><p><b>${esc(q.q)}</b></p>
+ ${q.o.map((o,i)=>`<button class="o" onclick="pick(${i},this)">${esc(o)}</button>`).join('')}<div id="fb"></div>
+ <button class="b g" onclick="start()">Reshuffle</button></div>`;
+}
+function pick(i,b){
+ const q=Q[qi];document.querySelectorAll('.o').forEach(x=>{x.disabled=true;if(x.textContent===q.a)x.classList.add('ok')});
+ if(q.o[i]===q.a)sc++;else b.classList.add('bad');
+ $('fb').innerHTML=`<p class="m">Source: ${esc(q.s)}</p><button class="b" onclick="qi++;show()">Next</button>`;
+}
+
+function addR(){
+ const d=[...document.querySelectorAll('.dy:checked')].map(x=>+x.value);
+ if(!$('rt').value||!d.length)return;
+ D.R.push({id:String(Date.now()),sub:$('rs').value,t:$('rt').value,d});save();rems();
+}
+function rems(){
+ $('rl').innerHTML=D.R.map(r=>`<div class="c"><b>${esc(r.sub)}</b> at ${r.t}<br><span class="m">${r.d.map(i=>DAYS[i]).join(', ')}</span><br><button class="b r" onclick="delR('${r.id}')">Delete</button></div>`).join('')||'<p class="m">No reminders yet.</p>';
+}
+function delR(id){D.R=D.R.filter(r=>r.id!==id);save();rems()}
+function askN(){if('Notification' in window)Notification.requestPermission()}
+let last='';
+function banner(m){$('ban').textContent=m;$('ban').style.display='block';setTimeout(()=>$('ban').style.display='none',8000)}
+function check(){
+ const n=new Date(),hm=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+ D.R.filter(r=>r.t===hm&&r.d.includes(n.getDay())).forEach(r=>{
+  const k=r.id+hm+n.toDateString();if(k===last)return;last=k;
+  const m='Time to study: '+r.sub;banner(m);
+  try{if(Notification.permission==='granted'){navigator.serviceWorker&&navigator.serviceWorker.ready?navigator.serviceWorker.ready.then(g=>g.showNotification('Study Companion',{body:m})):new Notification(m)}}catch(e){}
+ })
+}
+setInterval(check,15000);
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+const SZ={A3:[297,420],A4:[210,297],A5:[148,210],A6:[105,148],B4:[250,353],B5:[176,250],Letter:[215.9,279.4],Legal:[215.9,355.6],Tabloid:[279.4,431.8],Executive:[184.1,266.7],Custom:[0,0]};
+$('pz').innerHTML=Object.keys(SZ).map(k=>`<option ${k==='A4'?'selected':''}>${k}</option>`).join('');
+function initP(){const v=$('ps').value;$('ps').innerHTML='<option value="">All subjects</option>'+D.S.map(x=>`<option>${esc(x)}</option>`).join('');$('ps').value=v;initL();setPage();render()}
+function initL(){const sv=$('ps').value;$('pl').innerHTML='<option value="">All lectures</option>'+D.L.filter(l=>!sv||l.sub===sv).map(l=>`<option value="${l.id}">${esc(l.title)}</option>`).join('')}
+function dims(){const k=$('pz').value;let w,h;if(k==='Custom'){w=+$('cw').value||210;h=+$('ch').value||297}else[w,h]=SZ[k];const a=Math.min(w,h),b=Math.max(w,h);return $('po').value==='landscape'?[b,a]:[a,b]}
+function setPage(){
+ $('cu').classList.toggle('hide',$('pz').value!=='Custom');
+ const[w,h]=dims(),m=$('pm').value;
+ $('pgs').textContent=`@page{size:${w}mm ${h}mm;margin:${m}mm}`;
+ $('pi').textContent=`${$('pz').value}, ${w} x ${h} mm, ${$('po').value}`;
+}
+function render(){
+ const id=$('pl').value,sv=$('ps').value;
+ const ls=id?D.L.filter(l=>l.id===id):D.L.filter(l=>!sv||l.sub===sv);
+ if(!ls.length){$('pv').innerHTML='<p>No lectures to print yet.</p>';$('pa').innerHTML='';return}
+ let h='';
+ if($('cs').checked||$('ct').checked)ls.forEach(l=>{
+  h+=`<div class="pgb"><h2>${esc(l.title)}</h2><div class="pm">${esc(l.sub)} | ${esc(l.date)}</div>`;
+  if($('cs').checked)h+='<h3>Summary</h3><ul>'+l.sum.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>';
+  if($('ct').checked)h+='<h3>Transcript</h3><p>'+esc(l.text)+'</p>';
+  h+='</div>'});
+ if($('cq').checked){
+  const[P,T]=build(ls),n=+$('pn').value;
+  if(P.length<4)h+='<div class="pgb"><h2>Quiz</h2><p>Not enough content to make a quiz.</p></div>';
+  else{
+   const Z=shuf(P).slice(0,n).map(x=>({...x,o:shuf([x.a,...shuf(T.filter(t=>t!==x.a)).slice(0,3)])}));
+   h+=`<div class="pgb"><h2>Quiz</h2><div class="pm">Name: ____________ Date: ________ Score: ___ / ${Z.length}</div><ol>`+Z.map(q=>`<li class="nb"><div>${esc(q.q)}</div><div>${q.o.map((o,i)=>'ABCD'[i]+') '+esc(o)).join(' &nbsp; ')}</div></li>`).join('')+'</ol></div>';
+   if($('ck').checked)h+='<div class="pgb"><h2>Answer key</h2><ol>'+Z.map(q=>`<li>${'ABCD'[q.o.indexOf(q.a)]}) ${esc(q.a)}</li>`).join('')+'</ol></div>';
+  }}
+ $('pv').innerHTML=h||'<p>Choose what to include.</p>';$('pa').innerHTML=h;
+}
+function pr(){if(!$('pa').innerHTML)render();setPage();setTimeout(()=>window.print(),100)}
+let ASR={};
+async function trans(){
+ const f=$('af').files[0],ab=$('ab'),P=m=>$('ap').textContent=m;
+ if(!f){P('Choose an audio file first.');return}
+ ab.disabled=true;
+ try{
+  P('Decoding audio...');
+  const ctx=new(window.AudioContext||window.webkitAudioContext)({sampleRate:16000});
+  const buf=await ctx.decodeAudioData(await f.arrayBuffer());
+  let a=buf.getChannelData(0);
+  if(buf.numberOfChannels>1){const b=buf.getChannelData(1),m=new Float32Array(a.length);for(let i=0;i<a.length;i++)m[i]=(a[i]+b[i])/2;a=m}
+  ctx.close();
+  const id=$('am').value;
+  if(!ASR[id]){
+   P('Loading speech model...');
+   const{pipeline}=await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2');
+   ASR[id]=await pipeline('automatic-speech-recognition',id,{progress_callback:p=>{if(p.status==='progress')P('Downloading model '+Math.round(p.progress)+'%')}});
+  }
+  const SEG=300*16000,n=Math.ceil(a.length/SEG),out=[];
+  for(let i=0;i<n;i++){
+   P('Transcribing part '+(i+1)+' of '+n+'...');
+   const r=await ASR[id](a.slice(i*SEG,(i+1)*SEG),{chunk_length_s:30,stride_length_s:5});
+   out.push(r.text.trim());$('txt').value=out.join(' ');
+  }
+  if(!$('ttl').value)$('ttl').value=f.name.replace(/\.\w+$/,'');
+  ofl();P('Done. Review the text below, fix any errors, then tap Save & summarize.');
+ }catch(e){P('Failed: '+e.message+'. Try a smaller file or WAV/MP3 format.')}
+ ab.disabled=false;
+}
+async function ofl(){
+ const sup='serviceWorker' in navigator&&!!window.caches&&location.protocol!=='file:';let app=false,model=false;
+ try{if(sup){const g=await navigator.serviceWorker.getRegistration();const hit=await caches.match('index.html');app=!!(g&&g.active&&hit);model=(await caches.keys()).some(x=>/transformers/i.test(x))}}catch(e){}
+ $('ofp').classList.toggle('ok',app);
+ $('oft').textContent=app?(navigator.onLine?'Offline ready':'Offline mode'):(!sup?'Offline not available here':(navigator.onLine?'Preparing offline...':'Offline, not ready'));
+ $('ofd').textContent='App files: '+(app?'saved on this device':(sup?'not saved yet, stay online a few seconds':'unsupported, open the app from its https link'))+'. Speech model for audio import: '+(model?'downloaded':'not downloaded yet (transcribe one short clip online first)')+'.';
+}
+addEventListener('online',ofl);addEventListener('offline',ofl);
+if('serviceWorker' in navigator)navigator.serviceWorker.ready.then(()=>setTimeout(ofl,800)).catch(()=>{});
+ofl();setTimeout(ofl,2500);
+function go(){try{localStorage.setItem('seen','1')}catch(e){}tab('add')}
+let seen=0;try{seen=localStorage.getItem('seen')}catch(e){}
+fill();tab(seen?'add':'home');
+</script></body></html>
